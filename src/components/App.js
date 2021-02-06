@@ -68,7 +68,7 @@ const App = () => {
     }
   
   useEffect(()=>{
-    console.log("useEffect body");
+    //console.log("useEffect body");
       document.addEventListener("keydown",fun)
       //cleanUp function
       return () =>{
