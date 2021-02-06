@@ -11,7 +11,7 @@ const App = () => {
     top: "0px",
   });
   const fun = (event)=>{
-      console.log(event.keyCode);
+      //console.log(event.keyCode);
       switch(event.keyCode){
         case 39:{
           //right arrow key
