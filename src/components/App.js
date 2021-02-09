@@ -6,76 +6,57 @@ const App = () => {
   const [renderBall, setRenderBall] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [ballPosition,setBallPosition] = useState({
-    left: "0px",
-    top: "0px",
-  });
-  const fun = (event)=>{
-      console.log(event.keyCode);
-      switch(event.keyCode){
-        case 39:{
-          //right arrow key
-          setX(x+5);
-          setBallPosition({
-            left:x + "px",
-            top:y + "px",
-            position : "absolute"
+  const [ballPosition,setBallPosition] = useState({ left: "0px", top: "0px",});
+  const [count,setCount] = useState(5); 
+ 
+ 
+ useEffect(()=>{
+        setBallPosition((ballPosition)=>{
+            return {...ballPosition,left:x+"px",top:y+"px"}
           })
-          // console.log(ballPosition,x,y)
+ },[x,y])
+
+
+ let handleClick = (event) => {
+      switch (event.keyCode) {
+        case 39:
+          // right arrow key
+          setX(x => x+5)
+          // setBallPosition((ballPosition)=>{
+          //   return {...ballPosition,left:x+"px"}
+          // })
           break;
-        }
-        case 40:{
-            //down arrow key
-            setY(y+5);
-            // console.log("down arrow key",x,y)
-            setBallPosition({
-              left:x + "px",
-              top:y + "px",
-              position : "absolute"
-            })
-            // console.log(ballPosition,x,y)
-            break;
-        }
-        case 38:{
-          //up arrow key
-          
-            setY(y-5);
-            // console.log("down arrow key",x,y)
-            setBallPosition({
-              left:x + "px",
-              top:y + "px",
-              position : "absolute"
-            })
-            // console.log(ballPosition,x,y)
+        case 40:
+          // down arrow key
+          setY(y => y+5)
+          // setBallPosition((ballPosition)=>{
+          //   return {...ballPosition,top:ballPosition.top+5};
+          // })
+          break
+        case 37:
+          //left arrow key
+          setX(x=>x-5)
+          // setBallPosition((ballPosition)=>{
+          //   return {...ballPosition,left:ballPosition.left-5}
+          // })
+          break
+        case 38:
+          //top key
+          setY(y => y-5)
+          // setBallPosition((ballPosition)=>{
+          //   return {...ballPosition,top:ballPosition.top-5}
+          // })
           break;
-        }
-        case 37:{
-          // left arrow key
-         
-            setX(x-5);
-          setBallPosition({
-            left:x + "px",
-            top:y + "px",
-            position : "absolute"
-          })
-          // console.log(ballPosition,x,y)
+        default:
           break;
-        }
-        default :{
-          break;
-        }
       }
+ }
+ useEffect(()=>{
+    document.addEventListener("keydown",handleClick);
+    return ()=> {
+      document.removeEventListener("keydown",handleClick);
     }
-  
-  useEffect(()=>{
-    console.log("useEffect body");
-      document.addEventListener("keydown",fun)
-      //cleanUp function
-      return () =>{
-        document.removeEventListener("keydown",fun);
-        // console.log("cleanup function")
-      }
-  },[ballPosition])
+ },[ballPosition])
   // every x,y changes then again executed the useeffect body and 
   // every useeffect attact the event an the document the page is very heavy 
   //in every x,y change  so we need to write the clean up documet event listener when 
@@ -100,7 +81,7 @@ const App = () => {
     }
 
   };
-  // console.log(renderChoice())
+
   return (
     <div className="playground">
       <button onClick={reset} className="reset">
