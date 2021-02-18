@@ -51,11 +51,11 @@ const App = () => {
  }
  useEffect(()=>{
     document.addEventListener("keydown",handleClick);
-    return ()=> {
-      document.removeEventListener("keydown",handleClick);
-    }
+//     return ()=> {
+//       document.removeEventListener("keydown",handleClick);
+//     }
 
- },[ballPosition])
+ },[])
 
   
   // every x,y changes then again executed the useeffect body and 
